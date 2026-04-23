@@ -1,87 +1,57 @@
-# Welcome to React Router!
+# Resumenyzer 🚀
+### Optimize your resume for your dream internship with AI.
 
-A modern, production-ready template for building full-stack React applications using React Router.
+## 💡 The Motivation
+Applying for your first student internship is a daunting process. As a student myself, I realized that while I have the skills, I didn't always know how to "speak the language" of the companies I was applying to. Generic resumes often get lost in the sea of applications because they aren't tailored to specific job descriptions or optimized for **Applicant Tracking Systems (ATS)**.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+I built **Resumenyzer** to solve this exact problem. It's a tool designed to help students and first-time job seekers bridge the gap between their current experience and what top-tier companies are looking for.
 
-## Features
+## 🛠️ The Problem
+- **The ATS Gap:** Most companies use automated filters. If your resume doesn't hit the right keywords, a human might never see it.
+- **Lack of Feedback:** Rejections often come without explanation. You don't know *why* your resume wasn't a match.
+- **Generic Applications:** Sending the same PDF to 50 companies rarely works. Tailoring takes time—time that students often don't have.
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+## ✨ The Solution
+Resumenyzer uses advanced AI to act as your personal career coach. By comparing your resume directly against a specific job description, it provides:
+- **Semantic Scoring:** A visual, color-coded score (Green/Amber/Red) across categories like Skills, Structure, and Tone.
+- **Actionable Tips:** Specific "Good" and "Needs Improvement" points that tell you exactly what to change.
+- **Instant Preview:** A fast, sleek interface to manage all your tailored resumes in one place.
 
-## Getting Started
+## 🚀 Technology Stack
+This project is built using modern, cloud-native technologies for a seamless, serverless experience:
 
-### Installation
+- **Frontend:** [React Router v7](https://reactrouter.com/) & [Vite](https://vitejs.dev/) for a lightning-fast Single Page Application (SPA).
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/) with a focus on **HCI (Human-Computer Interaction)** principles for a minimalist, professional aesthetic.
+- **Cloud Infrastructure:** Powered entirely by [Puter.js](https://puter.com/).
+  - **Puter AI:** For intelligent resume analysis and feedback generation.
+  - **Puter KV:** A high-speed key-value store for saving your analysis history.
+  - **Puter FS:** Secure cloud file storage for your resume PDFs.
+  - **Puter Hosting:** For zero-config, free static deployment.
+- **PDF Engine:** [PDF.js](https://mozilla.github.io/pdf.js/) for generating instant high-quality previews of your documents.
 
-Install the dependencies:
+## 📖 How to Use
+1. **Upload:** Drop your resume (PDF) into the smart uploader.
+2. **Details:** Enter the Company Name and Job Title you're aiming for.
+3. **Context:** Paste the Job Description from the company's hiring page.
+4. **Analyze:** Hit "Analyze Resume" and let the AI go to work.
+5. **Optimize:** Use the specific feedback to refine your bullet points, fix your tone, and highlight the skills that matter most to that specific recruiter.
+
+## 🛠️ Local Development
+To run this project locally:
 
 ```bash
+# Install dependencies
 npm install
-```
 
-### Development
-
-Start the development server with HMR:
-
-```bash
+# Start the development server
 npm run dev
 ```
 
-Your application will be available at `http://localhost:5173`.
-
-## Building for Production
-
-Create a production build:
-
-```bash
-npm run build
-```
-
-## Deployment
-
-### Docker Deployment
-
-To build and run using Docker:
-
-```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
-```
-
-The containerized application can be deployed to any platform that supports Docker, including:
-
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
+## 🌐 Deployment
+This project is configured as a static SPA for easy deployment on **Puter.com**:
+1. Run `npm run build`.
+2. Upload the `build/client` directory to the Puter Hosting app.
+3. Your AI Resume Analyzer is live!
 
 ---
-
-Built with ❤️ using React Router.
+*Created with intent by student, for students.*
