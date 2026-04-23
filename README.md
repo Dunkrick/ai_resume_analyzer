@@ -29,6 +29,11 @@ This project is built using modern, cloud-native technologies for a seamless, se
   - **Puter Hosting:** For zero-config, free static deployment.
 - **PDF Engine:** [PDF.js](https://mozilla.github.io/pdf.js/) for generating instant high-quality previews of your documents.
 
+## 🔑 Prerequisites
+To use Resumenyzer, you will need a **[Puter.com](https://puter.com)** account. 
+- **Why?** We use Puter's advanced AI for analysis and their secure cloud storage to keep your resumes private and accessible only to you.
+- **Cost:** Creating an account is completely free!
+
 ## 📖 How to Use
 1. **Upload:** Drop your resume (PDF) into the smart uploader.
 2. **Details:** Enter the Company Name and Job Title you're aiming for.
