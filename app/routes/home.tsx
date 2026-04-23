@@ -56,7 +56,7 @@ export default function Home() {
         fetchResumes();
     }, [puterReady, auth.isAuthenticated, kv]);
 
-  return <main className="bg-[url('/images/bg-main.svg')] bg-cover min-h-screen pb-20">
+  return <main className="bg-slate-50 min-h-screen pb-20">
     <Navbar/>
     <section className="main-section">
       <div className="page-heading py-16">

@@ -123,18 +123,18 @@ const Upload = () => {
     }
 
     return (
-        <main className="bg-[url('/images/bg-main.svg')] bg-cover">
+        <main className="bg-slate-50 min-h-screen">
          <Navbar/>
         <section className="main-section">
             <div className="page-heading py-16">
-                <h1>Smart Feedback for your dream Job</h1>
+                <h1>Smart Feedback for your Dream Job</h1>
                 { isProcessing?(
-                    <>
-                    <h2>{statusText}</h2>
-                    <img src="/images/resume-scan.gif" alt="resume-scan" className="w-full"/>
-                    </>
+                    <div className="flex flex-col items-center justify-center py-12 gap-6 w-full mt-8">
+                        <div className="w-16 h-16 border-4 border-blue-100 border-t-blue-600 rounded-full animate-spin"></div>
+                        <h2 className="text-blue-600 font-semibold animate-pulse">{statusText}</h2>
+                    </div>
                 ):(
-                    <h2>Drop your resume for ATS score and improvement tips</h2>
+                    <h2>Drop your resume for ATS scoring and actionable improvement tips</h2>
                 )}
                 {
                     !isProcessing && (

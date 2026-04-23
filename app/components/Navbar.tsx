@@ -17,16 +17,16 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="navbar flex justify-between items-center py-4 px-8 border-b border-gray-100 bg-white/50 backdrop-blur-md sticky top-0 z-50">
+        <nav className="navbar">
             <Link to="/" >
-                <p className="text-2xl font-bold text-gradient">Resumenyzer</p>
+                <p className="text-2xl font-bold text-slate-900 tracking-tight hover:text-blue-600 transition-colors">Resumenyzer</p>
             </Link>
             <div className="flex gap-6 items-center">
-                <button onClick={handleWipeData} className="text-red-500 font-medium hover:text-red-700 transition cursor-pointer">
+                <button onClick={handleWipeData} className="text-red-500 text-sm font-medium hover:text-red-700 transition cursor-pointer">
                     Wipe Data
                 </button>
                 <Link to="/upload" className="primary-button w-fit">
-                    <p>Upload Resume</p>
+                    Upload Resume
                 </Link>
             </div>
         </nav>
