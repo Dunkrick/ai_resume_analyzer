@@ -18,15 +18,21 @@ const Upload = () => {
     }
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (!file) {
-            alert("Please upload a resume");
+        
+        const formData = new FormData(e.currentTarget);
+        const companyName = (formData.get("company-name") as string)?.trim();
+        const jobTitle = (formData.get("job-title") as string)?.trim();
+        const jobDescription = (formData.get("job-description") as string)?.trim();
+
+        if (!companyName || !jobTitle || !jobDescription) {
+            alert("Please fill in all the job details (Company, Title, and Description).");
             return;
         }
 
-        const formData = new FormData(e.currentTarget);
-        const companyName = formData.get("company-name") as string;
-        const jobTitle = formData.get("job-title") as string;
-        const jobDescription = formData.get("job-description") as string;
+        if (!file) {
+            alert("Please upload your resume PDF.");
+            return;
+        }
 
         setIsProcessing(true);
 
@@ -140,23 +146,31 @@ const Upload = () => {
                     !isProcessing && (
                         <form id="upload-form" onSubmit={handleSubmit} className="flex flex-col gap-4 mt-8">
                             <div className="form-div">
-                                <label htmlFor="company-name">Company Name</label>
-                                <input type="text" name="company-name" placeholder="Company Name" id="company-name"></input>
+                                <label htmlFor="company-name" className="flex items-center gap-1">
+                                    Company Name <span className="text-red-500">*</span>
+                                </label>
+                                <input type="text" name="company-name" placeholder="e.g. Google" id="company-name" required />
                             </div>
                             <div className="form-div">
-                                <label htmlFor="job-title">Job Title</label>
-                                <input type="text" name="job-title" placeholder="Job Title" id="job-title"></input>
+                                <label htmlFor="job-title" className="flex items-center gap-1">
+                                    Job Title <span className="text-red-500">*</span>
+                                </label>
+                                <input type="text" name="job-title" placeholder="e.g. Software Engineer" id="job-title" required />
                             </div>
                             <div className="form-div">
-                                <label htmlFor="job-description">Job Description</label>
-                                <textarea rows={5} name="job-description" placeholder="Job Description" id="job-description"></textarea>
+                                <label htmlFor="job-description" className="flex items-center gap-1">
+                                    Job Description <span className="text-red-500">*</span>
+                                </label>
+                                <textarea rows={5} name="job-description" placeholder="Paste the job requirements here..." id="job-description" required></textarea>
                             </div>
                             <div className="form-div">
-                                <label htmlFor="uploader">Upload Resume</label>
+                                <label htmlFor="uploader" className="flex items-center gap-1">
+                                    Upload Resume <span className="text-red-500">*</span>
+                                </label>
                                 <FileUploader onFileSelect={handleFileSelect} />
                             </div>
-                            <button className="primary-button" type="submit" >
-                                <p>Analyze Resume</p>
+                            <button className="primary-button mt-4" type="submit" >
+                                Analyze Resume
                             </button>
                         </form>
                     )
