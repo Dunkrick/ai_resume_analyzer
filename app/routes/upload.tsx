@@ -4,6 +4,7 @@ import Navbar from "~/components/Navbar";
 import { useNavigate } from "react-router";
 import { usePuterStore } from "~/lib/puter";
 import { prepareInstructions, AIResponseFormat } from "../../constants";
+import { generatePDFPreview } from "~/lib/pdfPreview";
 
 const Upload = () => {
     const [isProcessing, setIsProcessing] = useState(false);
@@ -71,13 +72,17 @@ const Upload = () => {
                 throw new Error("Failed to parse AI response. The AI might not have returned valid JSON.");
             }
 
+            // Generate PDF Preview Image
+            setStatusText("Generating preview...");
+            const previewDataUrl = await generatePDFPreview(file);
+
             // 4. Create the final Resume object
             const resumeId = Date.now().toString(); // Generate a simple ID
             const resumeObj = {
                 id: resumeId,
                 companyName,
                 jobTitle,
-                imagePath: "/images/resume-1.png", // We will update this later if needed
+                imagePath: previewDataUrl, 
                 resumePath: uploadedFile.path,
                 feedback: feedbackData
             };
