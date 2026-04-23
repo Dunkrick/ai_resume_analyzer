@@ -33,10 +33,18 @@ const Upload = () => {
         try {
             setStatusText("Uploading Resume...");
             // 1. Upload to Puter FS
-            const uploadedFile = await puterStore.fs.upload([file]);
+            const uploadResult = await puterStore.fs.upload([file]);
             
-            if (!uploadedFile) {
+            if (!uploadResult) {
                 throw new Error("Failed to upload file");
+            }
+
+            // Handle whether puter returns a single item or an array of items
+            const uploadedFile = Array.isArray(uploadResult) ? uploadResult[0] : uploadResult;
+            const filePath = uploadedFile?.path;
+
+            if (!filePath) {
+                throw new Error("Could not determine uploaded file path");
             }
 
             setStatusText("AI is analyzing your resume...");
@@ -48,7 +56,7 @@ const Upload = () => {
             });
 
             // 3. Send to Puter AI Feedback
-            const aiResponse = await puterStore.ai.feedback(uploadedFile.path, prompt);
+            const aiResponse = await puterStore.ai.feedback(filePath, prompt);
             
             if (!aiResponse) {
                 throw new Error("Failed to get AI response");
@@ -59,16 +67,29 @@ const Upload = () => {
             // Extract the actual JSON string from the response
             let feedbackData;
             try {
-                // Sometimes AI returns markdown like ```json ... ```
-                let content = aiResponse.message.content as string;
-                if (content.includes("```json")) {
-                    content = content.split("```json")[1].split("```")[0].trim();
-                } else if (content.includes("```")) {
-                    content = content.split("```")[1].split("```")[0].trim();
+                let content = aiResponse.message.content;
+                
+                // If Claude/Puter returns an array of content blocks instead of a string
+                if (Array.isArray(content)) {
+                    content = content.map((block: any) => block.text || '').join('');
                 }
+
+                if (typeof content !== 'string') {
+                    content = JSON.stringify(content);
+                }
+
+                // AI sometimes adds extra conversational text before or after the JSON
+                // This reliably extracts the main JSON object between the first { and last }
+                const firstBrace = content.indexOf('{');
+                const lastBrace = content.lastIndexOf('}');
+                
+                if (firstBrace !== -1 && lastBrace !== -1) {
+                    content = content.substring(firstBrace, lastBrace + 1);
+                }
+
                 feedbackData = JSON.parse(content);
             } catch (err) {
-                console.error("Failed to parse AI response", err);
+                console.error("Failed to parse AI response:", aiResponse.message.content);
                 throw new Error("Failed to parse AI response. The AI might not have returned valid JSON.");
             }
 
@@ -83,7 +104,7 @@ const Upload = () => {
                 companyName,
                 jobTitle,
                 imagePath: previewDataUrl, 
-                resumePath: uploadedFile.path,
+                resumePath: filePath,
                 feedback: feedbackData
             };
 
@@ -93,9 +114,9 @@ const Upload = () => {
             // 6. Redirect to the result page
             navigate(`/resume/${resumeId}`);
 
-        } catch (error) {
+        } catch (error: any) {
             console.error(error);
-            alert("An error occurred during processing. Please try again.");
+            alert("An error occurred: " + (error.message || "Unknown error"));
             setIsProcessing(false);
             setStatusText("");
         }
@@ -113,7 +134,7 @@ const Upload = () => {
                     <img src="/images/resume-scan.gif" alt="resume-scan" className="w-full"/>
                     </>
                 ):(
-                    <h2>Drop your resume for ATS score and improvemnent tips</h2>
+                    <h2>Drop your resume for ATS score and improvement tips</h2>
                 )}
                 {
                     !isProcessing && (
